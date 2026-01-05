@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://ejij4kbvmjt4"]
+
+[ext_resource type="Script" uid="uid://c0gebfg4b5h2b" path="res://scripts/mesh_instance_3d.gd" id="1_f0adh"]
+[ext_resource type="PackedScene" uid="uid://c0mi0yap8iioi" path="res://player/player.tscn" id="2_135xi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btxoo"]
+sky_top_color = Color(0.385109, 0.684761, 1, 1)
+sky_horizon_color = Color(0.662255, 0.796836, 0.997294, 1)
+ground_bottom_color = Color(0.26391, 0.502584, 0.989176, 1)
+ground_horizon_color = Color(0.662255, 0.796836, 0.997294, 1)
+
+[sub_resource type="Sky" id="Sky_epgsi"]
+sky_material = SubResource("ProceduralSkyMaterial_btxoo")
+
+[sub_resource type="Environment" id="Environment_fg1xu"]
+background_mode = 2
+sky = SubResource("Sky_epgsi")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vu25h"]
+albedo_color = Color(1, 0.631373, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_p454y"]
+material = SubResource("StandardMaterial3D_vu25h")
+outer_radius = 1.5
+rings = 32
+ring_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxsep"]
+albedo_color = Color(0, 0.556863, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0earm"]
+material = SubResource("StandardMaterial3D_rxsep")
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ohn5e"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[node name="LevelPrototype" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fg1xu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 100, 0)
+shadow_enabled = true
+
+[node name="Donut" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.64679, 0.67402, 0.356875, 0, 0.46793, -0.883766, -0.762668, 0.571611, 0.302652, -9.23022, 2, 0)
+mesh = SubResource("TorusMesh_p454y")
+script = ExtResource("1_f0adh")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_0earm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ohn5e")
+
+[node name="Player" parent="." instance=ExtResource("2_135xi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24035, 0)

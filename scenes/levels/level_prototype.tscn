@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ejij4kbvmjt4"]
 
 [ext_resource type="Script" uid="uid://c0gebfg4b5h2b" path="res://scripts/mesh_instance_3d.gd" id="1_f0adh"]
-[ext_resource type="PackedScene" uid="uid://c0mi0yap8iioi" path="res://player/player.tscn" id="2_135xi"]
+[ext_resource type="PackedScene" uid="uid://c0mi0yap8iioi" path="res://scenes/player.tscn" id="2_135xi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btxoo"]
 sky_top_color = Color(0.385109, 0.684761, 1, 1)
@@ -48,6 +48,7 @@ shadow_enabled = true
 
 [node name="Donut" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.64679, 0.67402, 0.356875, 0, 0.46793, -0.883766, -0.762668, 0.571611, 0.302652, -9.23022, 2, 0)
+visible = false
 mesh = SubResource("TorusMesh_p454y")
 script = ExtResource("1_f0adh")
 

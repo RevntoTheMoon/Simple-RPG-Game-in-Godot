@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ejij4kbvmjt4"]
+[gd_scene load_steps=12 format=3 uid="uid://ejij4kbvmjt4"]
 
 [ext_resource type="Script" uid="uid://c0gebfg4b5h2b" path="res://scripts/mesh_instance_3d.gd" id="1_f0adh"]
 [ext_resource type="PackedScene" uid="uid://c0mi0yap8iioi" path="res://scenes/player.tscn" id="2_135xi"]
+[ext_resource type="Texture2D" uid="uid://s7lrb1ucjtyb" path="res://assets/texture/Prototype Textures/Green 3.png" id="2_ew6tq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btxoo"]
 sky_top_color = Color(0.385109, 0.684761, 1, 1)
@@ -28,7 +29,8 @@ rings = 32
 ring_segments = 16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxsep"]
-albedo_color = Color(0, 0.556863, 0, 1)
+albedo_texture = ExtResource("2_ew6tq")
+uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0earm"]
 material = SubResource("StandardMaterial3D_rxsep")
@@ -61,4 +63,3 @@ mesh = SubResource("PlaneMesh_0earm")
 shape = SubResource("ConcavePolygonShape3D_ohn5e")
 
 [node name="Player" parent="." instance=ExtResource("2_135xi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24035, 0)

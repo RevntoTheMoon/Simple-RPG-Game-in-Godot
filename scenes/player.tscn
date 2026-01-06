@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0mi0yap8iioi"]
+[gd_scene load_steps=6 format=3 uid="uid://c0mi0yap8iioi"]
 
 [ext_resource type="Script" uid="uid://bmogaibgq62vi" path="res://scripts/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://dulas3euf4e8h" path="res://scenes/hud.tscn" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3l3y"]
 radius = 0.22
@@ -10,6 +11,9 @@ height = 1.8
 radius = 0.22
 height = 1.8
 radial_segments = 16
+
+[sub_resource type="PrismMesh" id="PrismMesh_g2els"]
+size = Vector3(0.1, 0.1, 0.4)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_oul6g")
@@ -26,3 +30,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0.9, 3)
+
+[node name="RayCast3D" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 0, -1)
+
+[node name="RightHand" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28443384, -0.32591295, -0.33299583)
+
+[node name="Weapon" type="MeshInstance3D" parent="Head/RightHand"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.15, 0)
+mesh = SubResource("PrismMesh_g2els")
+
+[node name="UIs" type="Node" parent="."]
+
+[node name="HUD" parent="UIs" instance=ExtResource("2_g2els")]

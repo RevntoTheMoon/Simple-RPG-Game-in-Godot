@@ -5,12 +5,15 @@ extends CharacterBody3D
 @export var jump_velocity := 4.5
 
 var mouse_sensivity: float = 0.01
+var base_health: float = 100
+var enemy = null
 
 @onready var head: Node3D = $Head
-
-#@onready var camera = $MouseTrack/Camera3D
+@onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
 
 func _ready() -> void:
+	Global.player = self
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event: InputEvent) -> void:
@@ -19,9 +22,21 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		head.rotation.x -= event.relative.y * mouse_sensivity
 		head.rotation.y -= event.relative.x * mouse_sensivity
-		head.rotation.x = clamp(head.rotation.x, -1, 1)
-		
+		head.rotation.x = clamp(head.rotation.x, -PI/2, PI/2)
+	if event.is_action_pressed("primary_action") and not enemy == null :
+		enemy.base_health -= 20.0
+	
+	if event.is_action_pressed("secondary_action"):
+		base_health += 20.0
+	
+
+
 func _physics_process(delta: float) -> void:
+	if ray_cast_3d.is_colliding() and ray_cast_3d.get_collider() is CharacterBody3D:
+		enemy = ray_cast_3d.get_collider()
+	else: 
+		enemy = null
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

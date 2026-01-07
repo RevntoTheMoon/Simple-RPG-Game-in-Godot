@@ -1,6 +1,7 @@
 extends Control
 
 var text_health: Label
+
 @onready var death_screen: Label = $DeathScreen
 
 func _ready() -> void:

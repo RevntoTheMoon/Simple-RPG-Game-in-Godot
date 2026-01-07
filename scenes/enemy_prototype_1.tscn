@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dad8sbb4a4o7j"]
 
-[ext_resource type="Script" uid="uid://8s7s51053weq" path="res://scenes/entity_ai.gd" id="1_qoyst"]
+[ext_resource type="Script" path="res://scripts/entity_ai.gd" id="1_qoyst"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3l3y"]
 radius = 0.22
@@ -18,7 +18,7 @@ radial_segments = 16
 [sub_resource type="PrismMesh" id="PrismMesh_qoyst"]
 size = Vector3(0.1, 0.1, 0.4)
 
-[node name="EnemyPrototype1" type="CharacterBody3D"]
+[node name="EnemyProtoype1" type="CharacterBody3D"]
 script = ExtResource("1_qoyst")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

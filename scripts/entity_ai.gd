@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
-@export var target: CharacterBody3D
+
+var target: CharacterBody3D
 
 var speed: float = 4.0
 
@@ -13,8 +14,11 @@ var cooldown_left: float = 0.0
 @onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
 
 func _physics_process(delta: float) -> void:
+	if target == null:
+		return
 	# Facing the target
 	look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP)
+	$Head.look_at(Vector3(target.global_position.x, target.head.global_position.y, target.global_position.z), Vector3.UP)
 	
 	if base_health <= 0:
 		queue_free()
@@ -45,3 +49,13 @@ func hit_target():
 		target.base_health -= damage
 	if target.base_health < 0:
 		target.base_health = 0
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body is Player:
+		target = body
+
+
+func _on_area_3d_body_exited(body: Node3D) -> void:
+	if body is Player:
+		target = null

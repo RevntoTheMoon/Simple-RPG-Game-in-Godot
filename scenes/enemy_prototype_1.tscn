@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dad8sbb4a4o7j"]
+[gd_scene format=3 uid="uid://dad8sbb4a4o7j"]
 
-[ext_resource type="Script" path="res://scripts/entity_ai.gd" id="1_qoyst"]
+[ext_resource type="Script" uid="uid://8s7s51053weq" path="res://scripts/entity_ai.gd" id="1_qoyst"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3l3y"]
 radius = 0.22
@@ -18,28 +18,51 @@ radial_segments = 16
 [sub_resource type="PrismMesh" id="PrismMesh_qoyst"]
 size = Vector3(0.1, 0.1, 0.4)
 
-[node name="EnemyProtoype1" type="CharacterBody3D"]
+[sub_resource type="PrismMesh" id="PrismMesh_t7y6y"]
+size = Vector3(120, 30, 1.8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s63bh"]
+points = PackedVector3Array(-3.8146973e-06, 14.999998, 0.9, 59.999992, -15, 0.9, -3.8146973e-06, 14.999998, -0.9, -60, -15, 0.9, 59.999992, -15, -0.9, -60, -15, -0.9)
+
+[node name="EnemyProtoype1" type="CharacterBody3D" unique_id=1510602379]
 script = ExtResource("1_qoyst")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2018907257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_n3l3y")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=209687464]
 mesh = SubResource("CapsuleMesh_753qh")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=252342552]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="Head"]
+[node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=1334539937]
 target_position = Vector3(0, 0, -1)
 
-[node name="RightHand" type="Node3D" parent="Head"]
+[node name="RightHand" type="Node3D" parent="Head" unique_id=509074693]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28443384, -0.32591295, -0.33299583)
 
-[node name="Weapon" type="MeshInstance3D" parent="Head/RightHand"]
+[node name="Weapon" type="MeshInstance3D" parent="Head/RightHand" unique_id=968795182]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.15, 0)
 mesh = SubResource("PrismMesh_qoyst")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="Area3D" type="Area3D" parent="Head" unique_id=1167238851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Area3D" unique_id=1533260766]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.9160837, -15.288185)
+visible = false
+mesh = SubResource("PrismMesh_t7y6y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Area3D" unique_id=2015333831]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.9160837, -15.288185)
+shape = SubResource("ConvexPolygonShape3D_s63bh")
+debug_color = Color(0.93152547, 2.4787337e-06, 1.347661e-06, 1)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=551206604]
 path_height_offset = 1.0
+debug_enabled = true
+
+[connection signal="body_entered" from="Head/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Head/Area3D" to="." method="_on_area_3d_body_exited"]

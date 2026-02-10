@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name Player
 
 @export var animation: AnimationPlayer
 @export var jump_velocity: float = 4.5
@@ -35,6 +35,9 @@ func _physics_process(delta: float) -> void:
 		enemy = ray_cast_3d.get_collider()
 	else: 
 		enemy = null
+	
+	#if %ShapeCast3D.is_colliding():
+		#print("collide")
 	
 	# Add the gravity.
 	if not is_on_floor():

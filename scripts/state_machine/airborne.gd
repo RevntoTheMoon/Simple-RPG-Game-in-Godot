@@ -1,5 +1,5 @@
 extends States
-class_name Airborne
+class_name AirborneState
 
 var acceleration: float = 0.007
 var deceleration: float = 0.25
@@ -13,10 +13,10 @@ func update():
 	
 	if entity.is_on_floor():
 		if entity.velocity.length() > 0:
-			machine.change_state(machine.get_node("Walk"))
+			machine.change_state(machine.get_node("WalkState"))
 		else:
-			machine.change_state(machine.get_node("Idle"))
+			machine.change_state(machine.get_node("IdleState"))
 	elif Input.is_action_pressed("dash"):
-		machine.change_state(machine.get_node("Dash"))
+		machine.change_state(machine.get_node("DashState"))
 func exit():
 	pass

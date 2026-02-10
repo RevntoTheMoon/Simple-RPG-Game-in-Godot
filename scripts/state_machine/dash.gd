@@ -1,5 +1,5 @@
 extends States
-class_name Dash
+class_name DashState
 
 var speed := 20.0
 var duration := 0.2
@@ -19,6 +19,6 @@ func update():
 	entity.physics_update(speed, acceleration, deceleration)
 	if timer <= 0:
 		if entity.is_on_floor():
-			machine.change_state(machine.get_node("Idle"))
+			machine.change_state(machine.get_node("IdleState"))
 		else:
-			machine.change_state(machine.get_node("Airborne"))
+			machine.change_state(machine.get_node("AirborneState"))
